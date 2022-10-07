@@ -18,6 +18,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button button0,button1,button2,button3,button4,button5,button6,button7,button8,button9,button_plus,button_minus,button_divide,button_multiply,button_equal,button_dot,button_clear;
     TextView text_display;
 
+    double val1;
+    double val2;
+    String val2str;
+    boolean decimal = false;
+
+    enum Operator{none, add, substract, multiply, divide}
+    Operator operator = Operator.none;
+
     //this is to evaluate the math expression
     ScriptEngine engine ;
     @Override
@@ -102,21 +110,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 addNumber("9");
                 break;
             case R.id.button_divide:
-                addNumber("/");
+                addSymbol("/");
                 break;
             case R.id.button_multiply:
-                addNumber("*");
+                addSymbol("*");
                 break;
             case R.id.button_plus:
-                addNumber("+");
+                addSymbol("+");
                 break;
             case R.id.button_minus:
-                addNumber("-");
+                addSymbol("-");
                 break;
             case R.id.button_dot:
-                addNumber(".");
+                addDecimal(".");
                 break;
             case R.id.button_equal:
+                if ((Double)val1 == null || operator == Operator.none || (Double)val2 == null) {
+                    break;
+                }
                 String result = null;
                 try {
                     result = evaluate(text_display.getText().toString());
@@ -134,15 +145,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String evaluate (String expression) throws ScriptException {
         String result = engine.eval(expression).toString();
-        BigDecimal decimal =new BigDecimal(result);
-        return decimal.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
-
+        double r = Double.parseDouble(result);
+        if ((int)r == r) {
+            r = (int)r;
+        }
+        result = r+"";
+        return result;
     }
 
     private void addNumber (String s){
         text_display.setText(text_display.getText()+s);
-
+        if ((Double)val1 != null) {
+            val2str += s;
+            val2 = Double.parseDouble(val2str);
+        }
     }
+
+    private void addSymbol (String s){
+        if (operator == Operator.none) {
+            val1 = Double.parseDouble((String) text_display.getText());
+            decimal = false;
+            text_display.setText(text_display.getText() + s);
+            switch (s) {
+                case "+":
+                    operator = Operator.add;
+                    break;
+                case "-":
+                    operator = Operator.substract;
+                    break;
+                case "*":
+                    operator = Operator.multiply;
+                    break;
+                case "/":
+                    operator = Operator.divide;
+                    break;
+            }
+        }
+    }
+
+    private void addDecimal (String s){
+        if (!decimal) {
+            text_display.setText(text_display.getText()+s);
+            decimal = true;
+        }
+    }
+
     private void  clear_display (){
         text_display.setText("");
     }
