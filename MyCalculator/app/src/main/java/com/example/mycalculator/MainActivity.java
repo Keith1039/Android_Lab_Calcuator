@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 addNumber("9");
                 break;
             case R.id.btn_multi:
-                addNumber("x");
+                addNumber("*");
                 break;
             case R.id.btn0:
                 addNumber("0");
