@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 addNumber("2");
                 break;
             case R.id.btn3:
-                    addNumber("3");
-                    break;
+                addNumber("3");
+                break;
             case R.id.btn4:
                 addNumber("4");
                 break;
@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn9:
                 addNumber("9");
+                break;
+            case R.id.btn0:
+                addNumber("0");
                 break;
             case R.id.btn_dot:
                 addNumber(".");
@@ -131,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_equal:
                 String result = null;
+                flag = false;
                 try {
                     result = evaluate(text_display.getText().toString());
                     Double val1 = Double.parseDouble(result);
@@ -142,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (ScriptException e) {
                     text_display.setText("Error");
                 }
+
                 break;
             case R.id.btn_clear:
                 flag = false;
