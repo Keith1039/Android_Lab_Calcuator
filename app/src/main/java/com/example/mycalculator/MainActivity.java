@@ -17,7 +17,7 @@ import javax.script.ScriptException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btn0,btn1, btn2, btn3, btn4, btn5,btn6, btn7,btn8,btn9, btn_dot, btn_clear, btn_plus, btn_minus, btn_multi, btn_divide, btn_equal;
     TextView text_display;
-    Boolean flag = false;
+    Boolean flag = true;
 
     // This is to evaluate the math expression
     ScriptEngine engine;
@@ -76,33 +76,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn1:
                 addNumber("1");
+                flag = false;
                 break;
             case R.id.btn2:
                 addNumber("2");
+                flag = false;
                 break;
             case R.id.btn3:
                 addNumber("3");
+                flag = false;
                 break;
             case R.id.btn4:
                 addNumber("4");
+                flag = false;
                 break;
             case R.id.btn5:
                 addNumber("5");
+                flag = false;
                 break;
             case R.id.btn6:
                 addNumber("6");
+                flag = false;
                 break;
             case R.id.btn7:
                 addNumber("7");
+                flag = false;
                 break;
             case R.id.btn8:
                 addNumber("8");
+                flag = false;
                 break;
             case R.id.btn9:
                 addNumber("9");
+                flag = false;
                 break;
             case R.id.btn0:
                 addNumber("0");
+                flag = false;
                 break;
             case R.id.btn_dot:
                 addNumber(".");
