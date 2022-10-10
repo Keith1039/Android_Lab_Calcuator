@@ -17,6 +17,7 @@ import javax.script.ScriptException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btn0,btn1, btn2, btn3, btn4, btn5,btn6, btn7,btn8,btn9, btn_dot, btn_clear, btn_plus, btn_minus, btn_multi, btn_divide, btn_equal;
     TextView text_display;
+    Boolean flag = false;
 
     // This is to evaluate the math expression
     ScriptEngine engine;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.btn1:
                 addNumber("1");
@@ -102,29 +104,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_dot:
                 addNumber(".");
                 break;
-            case R.id.btn_plus:
-                addNumber("+");
+            case R.id.btn_plus :
+                if(flag == false) {
+                    addNumber("+");
+                    flag = true;
+                }
                 break;
             case R.id.btn_minus:
-                addNumber("-");
+                if(flag == false) {
+                    addNumber("-");
+                    flag = true;
+                }
                 break;
             case R.id.btn_multi:
-                addNumber("x");
+                if(flag == false) {
+                    addNumber("*");
+                    flag = true;
+                }
                 break;
             case R.id.btn_divide:
-                addNumber("/");
+                if(flag == false) {
+                    addNumber("/");
+                    flag = true;
+                }
                 break;
 
             case R.id.btn_equal:
                 String result = null;
                 try {
                     result = evaluate(text_display.getText().toString());
+                    Double val1 = Double.parseDouble(result);
+                    Integer val2 = val1.intValue();
+                    if(val1 == val2.doubleValue()){
+                        result = val2.toString();
+                    }
                     text_display.setText(result);
                 } catch (ScriptException e) {
                     text_display.setText("Error");
                 }
                 break;
             case R.id.btn_clear:
+                flag = false;
                 clear_display();
                 break;
         }
