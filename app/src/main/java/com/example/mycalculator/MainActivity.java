@@ -155,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     text_display.setText(result);
                 } catch (ScriptException e) {
                     text_display.setText("Error");
+                } catch(NumberFormatException e){
+                    text_display.setText("Error"); 
                 }
 
                 break;
